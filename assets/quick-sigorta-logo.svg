@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 190" role="img" aria-labelledby="title desc">
+  <title id="title">Quick Sigorta</title>
+  <desc id="desc">Koyu lacivert QUICK yazısı, pembe ve yeşil işaret, altta SIGORTA yazısı.</desc>
+  <g fill="#171D4D" transform="scale(1.66 1)">
+    <text x="0" y="124" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="126" font-weight="900" letter-spacing="-5">QUICK</text>
+  </g>
+  <g fill="#171D4D" transform="scale(1.25 1)">
+    <text x="365" y="177" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="38" font-weight="900" letter-spacing="-1.1">SIGORTA</text>
+  </g>
+  <g aria-hidden="true">
+    <path fill="#E91E79" d="M681 0h25c8 0 14 4 20 11l33 43c7 9 5 22-4 29l-20 16z"/>
+    <path fill="#8BC900" d="M735 85l20 14c9 7 10 19 2 27l-41 45c-6 6-12 10-20 10h-25z"/>
+    <circle cx="744" cy="83" r="22" fill="#171D4D"/>
+  </g>
+</svg>
