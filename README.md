@@ -81,3 +81,19 @@ Site ilk kez açık temayla açılır; ziyaretçi üst menüdeki tema düğmesiy
 
 ## 7/24 Hizmet Vurgusu
 Ana sayfa, ürün detayları, üst iletişim mesajı ve alt bilgi alanlarında 7/24 teklif/poliçe düzenleme hizmeti vurgulanır. Poliçe düzenleme işlemleri ilgili sigorta şirketinin sistemlerine ve ürün koşullarına bağlı olabilir.
+
+
+## Dinç Sigorta Asistanı (ücretsiz sohbet)
+- Müşteri tarafındaki tüm ana sayfa, ürün rehberi, iletişim ve duyurular sayfalarında sağ altta görünür. Yönetim panelinde gösterilmez.
+- `chatbot.js` ve sohbet stilleri `style.css` içindedir. Harici yapay zekâ API'si, API anahtarı veya aylık servis ücreti gerektirmez; site bilgileri ve sık sorulan sorular için yerel kural tabanlı yanıtlar verir.
+- Trafik, İMM, kasko, konut, DASK, iş yeri, tamamlayıcı/özel sağlık, diğer sigorta ihtiyaçları, 7/24 hizmet, acente tecrübesi, iletişim, adres ve kampanyalar konularında bilgi verir. Bilmediği veya poliçe koşullarına bağlı sorularda kullanıcıyı WhatsApp'a yönlendirir.
+- Asistan, serbest sohbet eden bir üretken yapay zekâ değildir; yeni ürün bilgisi veya SSS eklemek için `chatbot.js` içindeki ürün yanıtları güncellenir.
+- WhatsApp bağlantısı `905336344466` numarasını kullanır; kullanıcı WhatsApp ekranında mesajı kendisi gönderir.
+
+
+### Dinç Sigorta Asistanı
+Sitedeki 240 bölümden alınan ürün açıklamalarını ve sık sorulan soruları arar; yakın kelime eşleşmesi, Türkçe karakter normalizasyonu, sık yazım hataları ve eş anlamlı ifade gruplarıyla kullanıcı sorusunu bulmaya çalışır. Trafik sigortasının kişinin kendi aracını karşılayıp karşılamadığı gibi önemli soru varyasyonları ayrıca ele alınır. Bu bir üretken yapay zekâ değildir; poliçe özelindeki ve eşleşmeyen sorularda WhatsApp üzerinden acenteye yönlendirir.
+
+
+## WhatsApp Kanalı
+Ana sayfadaki “Her ürün için ayrı bilgi sayfası” kartlarının içinde, Özel Sağlık Sigortası'nın altında, aynı ölçüde bir WhatsApp kanal kartı bulunur. Güncel indirimler, kampanyalar ve yeni ürünlerden haberdar olmak için doğrudan https://whatsapp.com/channel/0029VbE4xlb6BIEb46ahZJ26 adresine gider. Dinç Sigorta Asistanı ilk açıldığında da kanala katılma önerisi gösterir; kampanya/indirim sorularında ayrıca kanal bağlantısı sunar.
