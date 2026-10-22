@@ -14,6 +14,10 @@ Kurumsal ana sayfa ve ayrı, birbirine bağlı sigorta rehber sayfaları içerir
 - `ozel-saglik-sigortasi.html`: özel sağlık sigortası rehberi, ayakta/yatarak tedavi, kurum ağı, limitler ve SSS
 - `diger-sigorta-cozumleri.html`: ferdi kaza, nakliyat, seyahat sağlık, sorumluluk, tarım/TARSİM ve diğer ihtiyaçlar için rehber
 - `bize-ulasin.html`: ofis adresi, gömülü Google Maps haritası ve yol tarifi bağlantısı
+- `duyurular.html`: müşterilere açık güncel duyurular ve kampanya listesi
+- `duyuru-yonetimi.html`: duyuru/kampanya oluşturmak, düzenlemek, silmek ve yayın JSON dosyası indirmek için yönetim aracı
+- `duyurular.json`: web sitesinde yayınlanan kampanya verileri
+- `announcements.js`, `campaign-manager.js`: duyuruların gösterimi ve yönetim aracı davranışları
 - `style.css`: responsive kurumsal tasarım
 - `script.js`: mobil menü, teklif formu ve WhatsApp akışları
 - `assets/recep-dinc-sigorta-logo.png`: sağlanan kurumsal logo
@@ -53,3 +57,23 @@ Quick Sigorta markası yerel PNG dosyasından gösterilir; böylece dış sunucu
 
 
 Quick Sigorta logo is included as a local cropped PNG at `assets/quick-sigorta-logo.png`, using the logo supplied for this update.
+
+
+## Teklif formu ve WhatsApp
+Ana sayfadaki form alanları yazılabilir ve seçilebilir. “Talebimi WhatsApp'tan İlet” hızlı düğmesi, girilmiş alanları mesaj taslağına aktarır; alanlar boşsa genel bir mesaj hazırlar. Ziyaretçi WhatsApp ekranında Gönder düğmesine kendisi basar; site teklifleri kendi sunucusunda saklamaz. Kişisel bilgiler içeren hızlı mesaj için onay kutusu işaretlenmelidir.
+
+## Paket dosyaları
+Bu pakette `style.css`, `script.js` ve `assets/` klasörü bulunur. Tüm HTML sayfaları bu ortak CSS ve JS dosyalarını kullanır; paket bütün olarak yüklenmelidir.
+
+
+## Tema seçenekleri ve ürün görselleri
+Ana sayfada dokuz sigorta ürün kartının ölçüleri korunarak kartların sağ alt alanına ürün fotoğrafları eklendi. Aynı fotoğraflar “Her ürün için ayrı bilgi sayfası” rehber bağlantılarında küçük görseller olarak kullanılır. Fotoğraflar `assets/products/` içinde yerel olarak paketlenmiştir.
+
+Site ilk kez açık temayla açılır; ziyaretçi üst menüdeki tema düğmesiyle koyu temayı seçebilir. Seçim aynı tarayıcıda sayfalar arasında hatırlanır. Seçim aynı tarayıcıda tüm sayfalarda hatırlanır. Mobil menüde de tema seçimi bulunur. Teklif formunda yalnızca “Talebimi WhatsApp'tan İlet” ana düğmesi gösterilir; form alanları boş olsa da genel bir talep mesajı hazırlanabilir. WhatsApp mesajı kullanıcı tarafından WhatsApp ekranında gönderilir.
+
+
+## Duyurular ve kampanyalar yönetimi
+- Menüdeki “Duyurular & Kampanyalar” bağlantısı, `duyurular.html` sayfasını açar. Ana sayfada, yayında ve tarih aralığı geçerli duyurular olduğunda kısa bir kampanya alanı görünür.
+- Duyuru oluşturmak için `duyuru-yonetimi.html` dosyasını açın. Başlık, tür, başlangıç/bitiş tarihi, kart görseli, kısa açıklama ve detay girebilirsiniz. İndirimleri açıklama metninde duyurabilirsiniz; indirim kodu/kupon alanı yoktur. Hazır görsel seçebilir veya bilgisayarınızdan görsel yükleyebilirsiniz. Yüklenen görsel optimize edilerek yayın JSON dosyasına dahil edilir. Taslaklar tarayıcınızda saklanır.
+- Statik HTML sitede panelin sunucuya doğrudan yazma yetkisi yoktur. Değişiklikleri tüm ziyaretçilere yayınlamak için panelde “Yayın dosyasını indir (duyurular.json)” düğmesine basın ve indirilen `duyurular.json` dosyasını hosting ana dizinine yükleyip mevcut dosyanın üzerine yazın. Böylece her kampanyada HTML düzenlemeniz gerekmez.
+- `duyuru-yonetimi.html` bir sunucu oturum açma sistemi değildir. Doğrudan sunucuya kaydetme ve güvenli yönetici girişi için hostingte sunucu taraflı API/CMS veya erişim koruması kurulmalıdır. `noindex` ve `robots.txt` erişim güvenliği sağlamaz.

@@ -1,3 +1,32 @@
+// Site-wide theme selector. Light is the first-visit default; visitor preference persists across pages.
+(function initThemeSelector(){
+  const root = document.documentElement;
+  const button = document.getElementById('themeToggle');
+  const getSavedTheme = () => { try { return localStorage.getItem('recepDincTheme'); } catch (error) { return null; } };
+  const initialTheme = getSavedTheme() === 'dark' ? 'dark' : 'light';
+  root.setAttribute('data-theme', initialTheme);
+  function applyTheme(theme, save = true) {
+    root.setAttribute('data-theme', theme);
+    if (save) { try { localStorage.setItem('recepDincTheme', theme); } catch (error) { /* Continue when storage is unavailable. */ } }
+    const isDark = theme === 'dark';
+    document.querySelectorAll('.brand:not(.brand-footer) .brand-logo').forEach(img => {
+      const target = isDark ? img.getAttribute('data-logo-dark') : img.getAttribute('data-logo-light');
+      if (target && img.getAttribute('src') !== target) img.setAttribute('src', target);
+    });
+    if (button) {
+      const icon = button.querySelector('.theme-toggle-icon');
+      const label = button.querySelector('.theme-toggle-label');
+      if (icon) icon.textContent = isDark ? '☼' : '☾';
+      if (label) label.textContent = isDark ? 'Açık tema' : 'Koyu tema';
+      button.setAttribute('aria-label', isDark ? 'Açık temaya geç' : 'Koyu temaya geç');
+      button.setAttribute('aria-pressed', String(isDark));
+      button.title = isDark ? 'Açık temaya geç' : 'Koyu temaya geç';
+    }
+  }
+  applyTheme(initialTheme, false);
+  if (button) button.addEventListener('click', () => applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+})();
+
 /* İşletme WhatsApp numarası: 90 533 634 44 66 (ülke kodu dahil, boşluksuz). */
 const WHATSAPP_NUMBER = "905336344466";
 
@@ -37,11 +66,19 @@ function whatsappIsConfigured() {
 
 function openWhatsApp(message) {
   if (!whatsappIsConfigured()) {
-    showToast('WhatsApp bağlantısını aktifleştirmek için script.js dosyasındaki WHATSAPP_NUMBER alanına işletme WhatsApp numaranızı 90 ile başlayacak şekilde yazın.');
+    showToast('WhatsApp bağlantısı yapılandırılamadı. Lütfen bizi 0533 634 44 66 numarasından arayın.');
     return false;
   }
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-  window.open(url, '_blank', 'noopener,noreferrer');
+  // This function is called directly from a user click/submit. Open in a new tab where possible.
+  let popup = null;
+  try { popup = window.open(url, '_blank'); } catch (error) { popup = null; }
+  if (popup) {
+    try { popup.opener = null; } catch (error) { /* Some browsers protect this property. */ }
+    return true;
+  }
+  // If the browser blocks popups, keep the request usable by navigating this tab instead.
+  window.location.assign(url);
   return true;
 }
 
@@ -99,7 +136,7 @@ if (quoteForm) {
     ].filter(Boolean).join('\n');
 
     if (whatsappIsConfigured()) {
-      setFeedback('WhatsApp mesajı yeni sekmede açılıyor. Gönderim işlemini WhatsApp üzerinden tamamlayın.', 'success');
+      setFeedback('WhatsApp açılıyor. Talebinizi iletmek için WhatsApp ekranında Gönder tuşuna basın.', 'success');
       openWhatsApp(message);
     } else {
       setFeedback('Form hazır. WhatsApp ile göndermeyi açmak için site yöneticisinin script.js dosyasına işletme numarasını eklemesi gerekiyor.', 'error');
@@ -122,6 +159,41 @@ function openDetailFromHash() {
 }
 window.addEventListener('hashchange', openDetailFromHash);
 openDetailFromHash();
+
+
+const quickWhatsAppRequest = document.getElementById('quickWhatsAppRequest');
+if (quickWhatsAppRequest && quoteForm) {
+  quickWhatsAppRequest.addEventListener('click', () => {
+    const fullName = quoteForm.elements.fullName.value.trim();
+    const phone = quoteForm.elements.phone.value.trim();
+    const branch = quoteForm.elements.branch.value;
+    const note = quoteForm.elements.note.value.trim();
+    const consent = quoteForm.elements.consent.checked;
+    const includesPersonalData = Boolean(fullName || phone || note);
+
+    // Don't put personally entered details into WhatsApp unless the visitor has checked the consent box.
+    if (includesPersonalData && !consent) {
+      setFeedback('Yazdığınız kişisel bilgileri WhatsApp mesajına eklemek için iletişim onayını işaretleyin.', 'error');
+      quoteForm.elements.consent.focus();
+      return;
+    }
+
+    const hasDetails = Boolean(fullName || phone || branch || note);
+    const message = hasDetails ? [
+      'Merhaba Recep Dinç Sigorta, sigorta talebimi iletmek istiyorum.',
+      '',
+      fullName ? `Ad Soyad: ${fullName}` : '',
+      phone ? `Telefon: ${phone}` : '',
+      branch ? `Sigorta Türü: ${branch}` : '',
+      note ? `Talep Detayım: ${note}` : ''
+    ].filter(Boolean).join('\n') :
+      'Merhaba Recep Dinç Sigorta, sigorta ihtiyacım hakkında bilgi almak ve teklif talebimi iletmek istiyorum. Bana yardımcı olabilir misiniz?';
+
+    if (openWhatsApp(message)) {
+      setFeedback('WhatsApp açılıyor. Talebinizin iletilmesi için WhatsApp ekranında Gönder tuşuna basın.', 'success');
+    }
+  });
+}
 
 const footerWhatsapp = document.getElementById('footerWhatsapp');
 if (footerWhatsapp) {
