@@ -77,3 +77,7 @@ Site ilk kez açık temayla açılır; ziyaretçi üst menüdeki tema düğmesiy
 - Duyuru oluşturmak için `duyuru-yonetimi.html` dosyasını açın. Başlık, tür, başlangıç/bitiş tarihi, kart görseli, kısa açıklama ve detay girebilirsiniz. İndirimleri açıklama metninde duyurabilirsiniz; indirim kodu/kupon alanı yoktur. Hazır görsel seçebilir veya bilgisayarınızdan görsel yükleyebilirsiniz. Yüklenen görsel optimize edilerek yayın JSON dosyasına dahil edilir. Taslaklar tarayıcınızda saklanır.
 - Statik HTML sitede panelin sunucuya doğrudan yazma yetkisi yoktur. Değişiklikleri tüm ziyaretçilere yayınlamak için panelde “Yayın dosyasını indir (duyurular.json)” düğmesine basın ve indirilen `duyurular.json` dosyasını hosting ana dizinine yükleyip mevcut dosyanın üzerine yazın. Böylece her kampanyada HTML düzenlemeniz gerekmez.
 - `duyuru-yonetimi.html` bir sunucu oturum açma sistemi değildir. Doğrudan sunucuya kaydetme ve güvenli yönetici girişi için hostingte sunucu taraflı API/CMS veya erişim koruması kurulmalıdır. `noindex` ve `robots.txt` erişim güvenliği sağlamaz.
+
+
+## 7/24 Hizmet Vurgusu
+Ana sayfa, ürün detayları, üst iletişim mesajı ve alt bilgi alanlarında 7/24 teklif/poliçe düzenleme hizmeti vurgulanır. Poliçe düzenleme işlemleri ilgili sigorta şirketinin sistemlerine ve ürün koşullarına bağlı olabilir.
